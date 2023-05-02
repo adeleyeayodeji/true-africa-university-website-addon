@@ -1,0 +1,64 @@
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .custom-webinar-tau-container {
+    justify-content: space-around;
+  }
+
+  .custom-webinar-tau-item {
+    width: 100%;
+    max-width: 90%;
+    flex: 0 0 90%;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  .custom-webinar-tau-container {
+    justify-content: space-around;
+  }
+
+  .custom-webinar-tau-item {
+    width: 100%;
+    max-width: 90%;
+    flex: 0 0 90%;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .custom-webinar-tau-container {
+    justify-content: space-around;
+  }
+
+  .custom-webinar-tau-item {
+    width: 100%;
+    max-width: 48.7%;
+    flex: 0 0 48.7%;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .custom-webinar-tau-container {
+    justify-content: space-around;
+  }
+
+  .custom-webinar-tau-item {
+    width: 100%;
+    max-width: 32.7%;
+    flex: 0 0 32.7%;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  .custom-webinar-tau-container {
+    justify-content: space-around;
+  }
+
+  .custom-webinar-tau-item {
+    width: 100%;
+    max-width: 32.7%;
+    flex: 0 0 32.7%;
+  }
+}
