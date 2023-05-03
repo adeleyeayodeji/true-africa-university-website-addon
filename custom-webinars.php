@@ -29,9 +29,63 @@ class CustomWebinarsTAUshortcode
         add_shortcode('custom_webinars-tau', array($this, 'custom_webinars'));
         //css
         add_action('wp_enqueue_scripts', array($this, 'enqueue_scripts'), 9999);
+        //admin script
+        add_action('admin_enqueue_scripts', array($this, 'admin_enqueue_scripts'));
         //ajax custom-webinars-tau-get-tag
         add_action('wp_ajax_custom-webinars-tau-get-tag', array($this, 'get_tag'));
         add_action('wp_ajax_nopriv_custom-webinars-tau-get-tag', array($this, 'get_tag'));
+        //add meta box to webinars
+        add_action('add_meta_boxes', array($this, 'add_meta_box'));
+        //save meta box
+        add_action('save_post', array($this, 'save_meta_box'));
+    }
+
+    //save_meta_box
+    public function save_meta_box($post_id)
+    {
+        // Check if our nonce is set.
+        if (!isset($_POST['custom-webinars-tau_nonce'])) {
+            return;
+        }
+        // Verify that the nonce is valid.
+        if (!wp_verify_nonce($_POST['custom-webinars-tau_nonce'], 'custom-webinars-tau')) {
+            return;
+        }
+        // Check the user's permissions.
+        if (!current_user_can('edit_post', $post_id)) {
+            return;
+        }
+        // Sanitize user input.
+        $custom_webinar_thumbnail = sanitize_text_field($_POST['custom_webinar_thumbnail']);
+        // Update the meta field in the database.
+        update_post_meta($post_id, 'custom_webinar_thumbnail', $custom_webinar_thumbnail);
+    }
+
+    //add_meta_box
+    public function add_meta_box()
+    {
+        add_meta_box(
+            'custom-webinars-tau',
+            __('Webinars Custom Thumbnail', 'custom-webinars'),
+            array($this, 'meta_box_callback'),
+            'webinars',
+            'normal',
+            'high'
+        );
+    }
+
+    //meta_box_callback
+    public function meta_box_callback($post)
+    {
+        // Add a nonce field so we can check for it later.
+        wp_nonce_field('custom-webinars-tau', 'custom-webinars-tau_nonce');
+        //ob start
+        ob_start();
+        require CUSTOM_WEBINARS_TAU_PLUGIN_DIR . 'view/meta-box.php';
+        //ob get clean
+        $html = ob_get_clean();
+        //echo html
+        echo $html;
     }
 
     //get_tag
@@ -108,6 +162,15 @@ class CustomWebinarsTAUshortcode
         ));
     }
 
+    //admin_enqueue_scripts
+    public function admin_enqueue_scripts()
+    {
+        //css
+        wp_enqueue_style('custom-webinars-tau-admin', CUSTOM_WEBINARS_TAU_PLUGIN_URL . 'view/assets/css/admin.css', array(), time(), 'all');
+        //js
+        wp_enqueue_script('custom-webinars-tau-admin', CUSTOM_WEBINARS_TAU_PLUGIN_URL . 'view/assets/js/admin.js', array('jquery'), time(), true);
+    }
+
     public function custom_webinars($atts)
     {
         $atts = shortcode_atts(
@@ -146,6 +209,8 @@ class CustomWebinarsTAUshortcode
         $tags = get_terms(array(
             'taxonomy' => 'post_tag',
             'hide_empty' => false,
+            //order by DESC
+            'order' => 'DESC',
         ));
         //pass to attr
         $atts['tags'] = $tags;

@@ -1,0 +1,15 @@
+.custom_webinar_label {
+  font-weight: bold;
+}
+
+.custom-webinar-action {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+#select_media_webinar_thumbnail {
+  font-size: 10px;
+  padding: 3px 10px;
+}
