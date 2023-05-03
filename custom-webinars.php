@@ -6,7 +6,7 @@
  * Author:      trueafricauniversity
  * Author URI:  https://trueafricauniversity.com/
  * Description: This plugin extends the functionality of the webinars post type.
- * Version:     0.1.0
+ * Version:     0.1.1
  * License:     GPL-2.0+
  * License URL: http://www.gnu.org/licenses/gpl-2.0.txt
  * text-domain: custom-webinars
@@ -248,3 +248,4 @@ class CustomWebinarsTAUshortcode
 //instantiate the class
 $customWebinarsTAUshortcode = new CustomWebinarsTAUshortcode();
 $customWebinarsTAUshortcode->init();
+//https://github.com/adeleyeayodeji
